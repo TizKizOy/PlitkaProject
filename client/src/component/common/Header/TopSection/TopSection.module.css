@@ -1,0 +1,48 @@
+.topSection {
+  color: white;
+}
+
+.title {
+  max-width: 79rem;
+  margin-bottom: 1.5rem;
+}
+
+.highlight {
+  color: #ffee00;
+}
+
+.subtitle {
+  max-width: 39rem;
+  margin-bottom: 5rem;
+  font-weight: 400;
+}
+
+.button {
+  color: white;
+  font-size: 2rem;
+  font-weight: 400;
+  border: none;
+  padding: 2rem 4rem;
+  border-radius: 4.5rem;
+  background: linear-gradient(
+    130deg,
+    rgba(95, 93, 93, 0.5) 0%,
+    rgba(74, 73, 73, 0.5) 100%
+  );
+  -webkit-backdrop-filter: blur(0.5rem);
+  backdrop-filter: blur(0.5rem);
+  margin-bottom: 12rem;
+  transition: transform 0.2s;
+}
+
+.button:hover,
+.button:active {
+  transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .button {
+    padding: 2.5rem 4rem;
+    margin-bottom: 6rem;
+  }
+}

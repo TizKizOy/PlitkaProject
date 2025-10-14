@@ -1,0 +1,14 @@
+.title {
+  text-transform: lowercase;
+}
+
+.subtitle {
+  text-transform: uppercase;
+}
+
+@media (max-width: 576px) {
+  .title,
+  .subtitle {
+    text-align: center;
+  }
+}

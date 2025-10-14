@@ -1,0 +1,12 @@
+.exit {
+  padding: 1rem 3rem;
+  border: none;
+  background-color: white;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.exit:hover {
+  transform: scale(1.07);
+}

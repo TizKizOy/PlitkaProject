@@ -1,0 +1,53 @@
+.inputGroup {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.selectGroup::after {
+  content: "˅";
+  position: absolute;
+  top: 49%;
+  right: 2rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.2rem;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.inputGroup select:invalid {
+  color: #646464;
+}
+
+.inputGroup select:valid {
+  color: #333;
+}
+
+.selectGroup:hover::after {
+  transform: translateY(-50%) scale(1.2);
+  color: #000;
+}
+
+.inputGroup input,
+.inputGroup select {
+  max-width: 38rem;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 2rem;
+  border-radius: 2.5rem;
+  border: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding-right: 4rem;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: transform 0.2s ease;
+}
+
+.inputGroup input:hover,
+.inputGroup select:hover,
+.inputGroup select:active {
+  transform: scale(1.02);
+}

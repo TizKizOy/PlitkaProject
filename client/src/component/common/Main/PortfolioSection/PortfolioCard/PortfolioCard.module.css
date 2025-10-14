@@ -1,0 +1,52 @@
+.card {
+  width: 47%;
+  background: #fff;
+  transition: transform 0.3s ease;
+  border-radius: 4.5rem;
+  overflow: hidden;
+}
+.card:hover {
+  transform: scale(1.03);
+}
+.image {
+  width: 100%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  border-top-left-radius: 4rem;
+  border-top-right-radius: 4rem;
+}
+.textContainer {
+  padding: 0 12rem 5.4rem 2rem;
+}
+
+.title {
+  color: black;
+  font-weight: 500;
+}
+.subtitle {
+  font-size: 2rem;
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 45%;
+  }
+  .textContainer {
+    padding: 0 2rem 5rem 2rem;
+  }
+  .image {
+    height: 25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 576px) {
+  card {
+    width: 100%;
+  }
+}

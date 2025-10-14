@@ -1,0 +1,66 @@
+.card {
+  width: 31rem;
+  padding: 4rem 2.4rem;
+  border-radius: 4.5rem;
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.07);
+}
+
+.icon {
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 7rem;
+  height: 7rem;
+}
+
+.title {
+  line-height: 115%;
+  letter-spacing: 3%;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.list li {
+  font-size: 1.8rem;
+  font-weight: 300;
+  word-break: normal;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 28.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card {
+    width: 40rem;
+    padding: 5rem 2.5rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .card {
+    width: 100%;
+  }
+  .card:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}
