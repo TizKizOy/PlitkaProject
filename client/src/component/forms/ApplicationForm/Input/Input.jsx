@@ -33,6 +33,8 @@ const Input = ({
         </select>
       ) : (
         <input
+          min={2}
+          maxLength={128}
           className={style.input}
           type={type}
           value={data[name] || ""}

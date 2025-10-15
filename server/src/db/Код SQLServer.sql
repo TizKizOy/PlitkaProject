@@ -46,15 +46,15 @@ go
 CREATE TABLE tbOrder (
     pkIdOrder nvarchar(256) NOT NULL,
     firstName nvarchar(128) NOT NULL,
-    phone nvarchar(64) NOT NULL,
+    phone nvarchar(32) NOT NULL CHECK (LEN(phone) >= 9 AND LEN(phone) <= 32),
     [location] nvarchar(256) NOT NULL,
 	comment nvarchar(1024) NULL,
-    fkIdService int null,
-	fkIdStatus int null
+    fkIdService int null DEFAULT 7,
+	fkIdStatus int null DEFAULT 1
 );
 go
-CREATE INDEX ind_tbOrder_firstName ON tbOrder(firstName);
-CREATE INDEX ind_tbOrder_fkIdService ON tbOrder(fkIdService);
+create index ind_tbOrder_firstName on tbOrder(firstName);
+create index ind_tbOrder_fkIdService on tbOrder(fkIdService);
 create index ind_tbOrder_fkIdStatus on tbOrder(fkIdStatus);
 go
 alter table tbOrder
@@ -136,3 +136,11 @@ end
 go
 
 
+
+UPDATE tbOrder
+    SET fkIdStatus = (SELECT pkIdStatus FROM tbStatus WHERE [name] = 'active')
+    WHERE pkIdOrder = '769bb14a-f85b-41eb-a15e-5852c2d47e06'
+
+
+
+select * from tbOrder

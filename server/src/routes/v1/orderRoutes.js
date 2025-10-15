@@ -7,7 +7,7 @@ const isAuthenticated =
 router.get("/order", isAuthenticated, orderController.getOrder);
 router.get("/order/:id", isAuthenticated, orderController.getOrderById);
 router.post("/order", orderController.postOrder);
-router.put("/order/:id", isAuthenticated, orderController.putAndPatchOrderById);
+router.put("/order/:id", isAuthenticated, orderController.putOrderById);
 router.patch(
   "/order/:pkIdOrder",
   isAuthenticated,

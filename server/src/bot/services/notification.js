@@ -1,5 +1,7 @@
 const bot = require("../index").bot;
-const chatId = "631228432";
+const dotenv = require('dotenv');
+dotenv.config();
+const chatId = process.env.CHATID;
 
 async function sendNotification(order) {
   let serviceName = "";

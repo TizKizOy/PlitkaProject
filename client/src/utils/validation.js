@@ -15,7 +15,7 @@ export const validateForm = (data) => {
   if (!data.phone.trim()) {
     newErrors.phone = "Телефон обязателен для заполнения";
     isValid = false;
-  } else if (!/^\+?\d{10,15}$/.test(data.phone)) {
+  } else if (!/^\+?\d{9,30}$/.test(data.phone)) {
     newErrors.phone = "Некорректный формат телефона";
     isValid = false;
   }

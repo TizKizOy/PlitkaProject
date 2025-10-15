@@ -30,12 +30,10 @@ const LoginForm = () => {
       .then((response) => {
         console.log("Ответ сервера:", response.data);
         navigate("/admin");
-        alert("Успех");
       })
       .catch((error) => {
         console.error("Ошибка:", error.response?.data?.error || error.message);
         setError(error.response?.data?.error || "Ошибка авторизации");
-        alert("Ошибка авторизации");
       });
   };
 

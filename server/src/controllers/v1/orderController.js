@@ -38,8 +38,9 @@ exports.updateOrderStatus = async (req, res, next) => {
       pkIdOrder,
       status
     );
-    res.json(updatedOrder);
+    res.status(200).json(updatedOrder);
   } catch (error) {
+    res.status(400);
     next(error);
   }
 };
@@ -70,7 +71,7 @@ exports.postOrder = async (req, res, next) => {
   }
 };
 
-exports.putAndPatchOrderById = async (req, res, next) => {
+exports.putOrderById = async (req, res, next) => {
   try {
     if (!req.body || Object.keys(req.body).length === 0) {
       return res

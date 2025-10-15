@@ -17,14 +17,14 @@ export const ClientPage = () => {
     phone: "",
     location: "",
     fkIdService: "",
-    fkIdOrderStaus: "",
+    fkIdStatus: "1",
   });
   const [errors, setErrors] = useState({
     firstName: "",
     phone: "",
     location: "",
     fkIdService: "",
-    fkIdOrderStaus: "",
+    fkIdStatus: "1",
   });
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const ClientPage = () => {
             phone: "",
             location: "",
             fkIdService: "",
-            fkIdOrderStaus: "",
+            fkIdStatus: "1",
           });
           setMessageIsVisible(true);
         })
