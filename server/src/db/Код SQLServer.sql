@@ -48,6 +48,7 @@ CREATE TABLE tbOrder (
     firstName nvarchar(128) NOT NULL,
     phone nvarchar(32) NOT NULL CHECK (LEN(phone) >= 9 AND LEN(phone) <= 32),
     [location] nvarchar(256) NOT NULL,
+	dateOfCreation date not null DEFAULT GetDate(),
 	comment nvarchar(1024) NULL,
     fkIdService int null DEFAULT 7,
 	fkIdStatus int null DEFAULT 1
@@ -81,8 +82,8 @@ add constraint ad_pk primary key(pkIdAdmin)
 go
 
 insert into tbStatus([name])
-values('active'),
-	  ('closed')
+values('активно'),
+	  ('закрыто')
 go
 
 insert into tbService([name])
@@ -98,10 +99,10 @@ insert into tbAdmin([login], passwordHash)
 values ('admin', '$2b$10$5./Sni1NL3pSSAbqXCGj1O7PTc.Suz6TjBk0A2Vduq7W7.BvfxjE2');
 
 insert into tbOrder(pkIdOrder, firstName, phone, [location], fkIdService, fkIdStatus)
-values ('7181f5cf-e3e9-42e2-8532-aeb643b69730', 'Захар', '+375447281124', 'СТ Птичь-2', 2, 1),
-	   ('423b4399-5228-49b5-9ac2-d54fabd21e2a', 'Евлампий', '+375449281144', 'СТ Птичь-1', 3, 2);
+values ('7181f5cf-e3e9-42e2-8532-aeb643b69730', 'Захар', '+375447281124', 'СТ Птичь-2, 20', 2, 1),
+	   ('423b4399-5228-49b5-9ac2-d54fabd21e2a', 'Евлампий', '+375449281144', 'СТ Птичь-1, 22', 3, 2);
 					
-delete from tbOrder where pkIdOrder = '7181f5cf-e3e9-42e2-8532-aeb643b69730'
+
 
 
 if exists
@@ -136,11 +137,25 @@ end
 go
 
 
+create or alter procedure pr_FilterOrders
+	@status nvarchar(128) = null,
+	@startDate date = null,
+	@endDate date = null
+as
+select 
+	o.pkIdOrder,
+	o.firstName,
+	o.phone,
+	o.[location],
+	o.comment,
+	o.dateOfCreation,
+	s.[name] as 'serviceName',
+	st.[name] as 'status'
+from tbOrder o
+join tbService s on o.fkIdService = s.pkIdService
+join tbStatus st on o.fkIdStatus = st.pkIdStatus
+where (@status is null or st.[name] = @status)
+	and (@startDate is null or o.dateOfCreation >= @startDate)
+	and (@endDate is null or o.dateOfCreation <= @endDate)
 
-UPDATE tbOrder
-    SET fkIdStatus = (SELECT pkIdStatus FROM tbStatus WHERE [name] = 'active')
-    WHERE pkIdOrder = '769bb14a-f85b-41eb-a15e-5852c2d47e06'
-
-
-
-select * from tbOrder
+exec pr_FilterOrders @status = 'закрыто'

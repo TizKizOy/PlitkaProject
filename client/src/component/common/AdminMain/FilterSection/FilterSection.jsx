@@ -4,6 +4,11 @@ const FilterSection = () => {
   return (
     <div className={style.filterBar}>
       <select className={style.filterBar__select}>
+        <option>Активные заявки</option>
+        <option>Закрытые заявки</option>
+      </select>
+      <select className={style.filterBar__select}>
+        <option>Текущий день</option>
         <option>Текущая неделя</option>
         <option>Текуий месяц</option>
       </select>

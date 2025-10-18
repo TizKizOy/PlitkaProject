@@ -39,7 +39,7 @@ const ApplicationForm = ({
               />
               <Input
                 name="location"
-                placeholder="Местонахождение объекта"
+                placeholder="Местонахождение, расстояние от МКАД"
                 data={data}
                 handleInputChange={handleInputChange}
                 error={errors.location}

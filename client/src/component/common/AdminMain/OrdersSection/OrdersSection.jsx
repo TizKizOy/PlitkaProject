@@ -1,53 +1,52 @@
 import axios from "axios";
 import style from "./OrdersSection.module.css";
+import services from "../../../../data/servicesForm";
 
 const api_url = "http://localhost:2020";
 
-const OrdersSection = ({ orders, setOrders, activeTab }) => {
-  const handleStatusChange = async (order) => {
-    try {
-      const newStatus = order.status === "active" ? "closed" : "active";
-      const response = await axios.patch(
-        `${api_url}/v1/order/${order.pkIdOrder}`,
-        { status: newStatus },
-        { withCredentials: true }
-      );
-
-      setOrders(
-        orders.map((o) =>
-          o.pkIdOrder === order.pkIdOrder ? { ...o, status: newStatus } : o
-        )
-      );
-    } catch (error) {
-      console.error("Ошибка при изменении статуса:", error);
-    }
-  };
-
+const OrdersSection = ({
+  orders,
+  onRowClick,
+  selectedOrders,
+  onCheckboxChange,
+}) => {
   return (
     <div className={style.table}>
       <div className={style.table__header}>
-        <div>Статус</div>
+        <div className={style.table__checkbox}>
+          <input type="checkbox" />
+        </div>
         <div>Имя</div>
         <div>Услуга</div>
         <div>Локация, км</div>
         <div>Телефон</div>
         <div>Комментарий</div>
+        <div>Статус</div>
       </div>
       <div className={style.table__list}>
         {orders.map((order) => (
-          <div key={order.pkIdOrder} className={style.table__row}>
+          <div
+            key={order.pkIdOrder}
+            className={style.table__row}
+            onClick={() => onRowClick(order)}
+          >
             <div className={style.table__checkbox}>
               <input
                 type="checkbox"
-                checked={order.status === "closed"}
-                onChange={() => handleStatusChange(order)}
+                checked={selectedOrders.includes(order.pkIdOrder)}
+                onChange={(e) => onCheckboxChange(e, order.pkIdOrder)}
+                onClick={(e) => e.stopPropagation()}
               />
             </div>
             <div>{order.firstName}</div>
-            <div>{order.serviceName}</div>
+            <div>
+              {services.find((s) => s.value === order.serviceName)?.label ||
+                order.serviceName}
+            </div>
             <div>{order.location}</div>
             <div>{order.phone}</div>
-            <div>{order.comment || ""}</div>
+            <div className={style.table__comment}>{order.comment || ""}</div>
+            <div>{order.status || "активно"}</div>
           </div>
         ))}
       </div>

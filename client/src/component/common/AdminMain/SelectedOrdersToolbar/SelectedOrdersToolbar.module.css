@@ -1,0 +1,46 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #636363;
+  width: 45rem;
+}
+
+.selectedCount {
+  display: flex;
+  align-items: center;
+}
+
+.closeIcon {
+  margin-right: 0.9rem;
+  cursor: pointer;
+  font-size: 2.3rem;
+  color: #929292;
+}
+
+.closeIcon:hover {
+  color: #000;
+}
+
+.buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2.1rem;
+  color: #636363;
+}
+
+.button:hover {
+  color: #000;
+}

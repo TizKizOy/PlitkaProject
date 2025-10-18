@@ -9,6 +9,7 @@ exports.readOrder = async () => {
         o.firstName,
         o.phone,
         o.location,
+        o.comment,
         s.name AS 'serviceName',
         os.name as 'status'
       FROM tbOrder o
@@ -22,22 +23,22 @@ exports.readOrder = async () => {
   }
 };
 
-exports.updateOrderStatus = async (pkIdOrder, status) => {
-  try {
-    const pool = await getPool();
-    await pool
-      .request()
-      .input("status", sql.NVarChar, status)
-      .input("pkIdOrder", sql.NVarChar, pkIdOrder).query(`
-        UPDATE tbOrder
-        SET fkIdStatus = (SELECT pkIdStatus FROM tbStatus WHERE name = @status)
-        WHERE pkIdOrder = @pkIdOrder
-      `);
-  } catch (err) {
-    console.error("Ошибка при обновлении статуса заказа:", err);
-    throw err;
-  }
-};
+// exports.updateOrderStatus = async (pkIdOrder, status) => {
+//   try {
+//     const pool = await getPool();
+//     await pool
+//       .request()
+//       .input("status", sql.NVarChar, status)
+//       .input("pkIdOrder", sql.NVarChar, pkIdOrder).query(`
+//         UPDATE tbOrder
+//         SET fkIdStatus = (SELECT pkIdStatus FROM tbStatus WHERE name = @status)
+//         WHERE pkIdOrder = @pkIdOrder
+//       `);
+//   } catch (err) {
+//     console.error("Ошибка при обновлении статуса заказа:", err);
+//     throw err;
+//   }
+// };
 
 exports.writeOrder = async (data) => {
   try {
@@ -112,6 +113,8 @@ exports.updateOrder = async (pkIdOrder, newData) => {
         fieldsToUpdate.push(`${key} = @${key}`);
         if (key === "fkIdService" || key === "fkIdStatus") {
           updateRequest.input(key, sql.Int, value);
+        } else if(key === 'dateOfCreation'){
+          updateRequest.input(key, sql.Date, value);
         } else {
           updateRequest.input(key, sql.NVarChar, value);
         }

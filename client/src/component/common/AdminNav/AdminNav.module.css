@@ -1,34 +1,16 @@
 .nav {
   background-color: #e5e5e5;
+  position: fixed;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 2rem 5rem;
-  margin-bottom: 5rem;
-}
-.nav__list {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
+  padding: 2rem 5rem;
 }
 
-.nav__button {
-  background-color: transparent;
-  border: none;
-  outline: none;
+.nav__title {
   font-size: 2rem;
   font-weight: 300;
-  margin-right: 6rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.nav__button:hover {
-  transform: scale(1.07);
-}
-
-.active {
-  font-weight: bold;
+  color: black;
 }
