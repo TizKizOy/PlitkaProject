@@ -18,7 +18,7 @@ const config = {
 
 let pool;
 
-async function getPool() {
+exports.getPool = async () => {
   if (!pool) {
     try {
       pool = await sql.connect(config);
@@ -31,4 +31,4 @@ async function getPool() {
   return pool;
 }
 
-module.exports = { getPool, sql };
+exports.sql = sql;

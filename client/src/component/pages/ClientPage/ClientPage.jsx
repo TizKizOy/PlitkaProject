@@ -63,7 +63,6 @@ export const ClientPage = () => {
             phone: "",
             location: "",
             fkIdService: "",
-            fkIdStatus: "1",
           });
           setMessageIsVisible(true);
         })

@@ -125,6 +125,7 @@ alter table tbDeletedOrders
 add constraint do_pk primary key(pkIdDeleteOrder)
 go
 
+
 create trigger trg_DeleteOrder_SaveOrderInTbDeletedOrders
 on tbOrder
 after delete
@@ -137,10 +138,13 @@ end
 go
 
 
+
+
 create or alter procedure pr_FilterOrders
-	@status nvarchar(128) = null,
+	@status nvarchar(64) = null,
 	@startDate date = null,
-	@endDate date = null
+	@endDate date = null,
+	@searchText nvarchar(128) = null
 as
 select 
 	o.pkIdOrder,
@@ -157,5 +161,106 @@ join tbStatus st on o.fkIdStatus = st.pkIdStatus
 where (@status is null or st.[name] = @status)
 	and (@startDate is null or o.dateOfCreation >= @startDate)
 	and (@endDate is null or o.dateOfCreation <= @endDate)
+	and ( @searchText IS NULL
+        OR o.firstName LIKE '%' + @searchText + '%'
+        OR o.phone LIKE '%' + @searchText + '%'
+        OR o.[location] LIKE '%' + @searchText + '%'
+        OR o.comment LIKE '%' + @searchText + '%'
+        OR s.[name] LIKE '%' + @searchText + '%'
+        OR st.[name] LIKE '%' + @searchText + '%')
 
-exec pr_FilterOrders @status = 'закрыто'
+exec pr_FilterOrders 
+	@searchText = 'закрыто'
+go
+
+create or alter procedure pr_GetOrderById
+    @pkIdOrder nvarchar(256)
+as
+select
+    o.pkIdOrder,
+    o.firstName,
+    o.phone,
+    o.[location],
+    o.comment,
+    o.dateOfCreation,
+    s.[name] AS 'serviceName',
+    st.[name] AS 'status',
+    o.fkIdService,
+    o.fkIdStatus
+from
+    tbOrder o
+join tbService s ON o.fkIdService = s.pkIdService
+join tbStatus st ON o.fkIdStatus = st.pkIdStatus
+where o.pkIdOrder = @pkIdOrder;
+go
+
+create or alter procedure pr_GetAdmilByLogin
+	@login nvarchar(256)
+as
+select * from tbAdmin where [login] = @login
+exec pr_GetAdmilByLogin @login = 'admin'
+go
+
+create or alter procedure pr_InsertOrder
+	@pkIdOrder nvarchar(256),
+	@firstName nvarchar(128),
+	@phone nvarchar(32),
+	@location nvarchar(256),
+	@fkIdService int = 7,
+	@fkIdStatus int = 1
+as
+INSERT INTO tbOrder (pkIdOrder, firstName, phone, [location], fkIdService, fkIdStatus)
+	VALUES (@pkIdOrder, @firstName, @phone, @location, @fkIdService, @fkIdStatus)
+go
+--exec pr_InsertOrder @PkIdOrder = '5c711f3d-fb2b-4f8c-9d7f-ed7cb50cbb2a',
+--	@firstName = 'Артур', @phone='+375253378844', @location='деревушка, 20'
+--select * from tbOrder
+--go
+
+create or alter procedure pr_CreateAdmin
+    @login nvarchar(256),
+    @passwordHash nvarchar(528)
+as
+SET NOCOUNT ON;
+declare @Inserted table (pkIdAdmin int, [login] nvarchar(255), passwordHash nvarchar(528));
+
+insert into tbAdmin ([login], passwordHash)
+output INSERTED.pkIdAdmin, INSERTED.[login], INSERTED.passwordHash into @Inserted
+values (@login, @passwordHash);
+select * from @Inserted;
+go
+
+
+create or alter procedure pr_UpdateOrder
+	@pkIdOrder nvarchar(256),
+	@newFirstName nvarchar(128) = null,
+	@newPhone nvarchar(32) = null,
+	@newLocation nvarchar(256) = null,
+	@newComment nvarchar(1024) = null,
+	@newFkIdService int = null,
+	@newFkIdStatus int = null
+as
+update tbOrder set
+	firstName = ISNULL(@newFirstName, firstName),
+	phone = ISNULL(@newPhone, phone),
+	[location] = ISNULL(@newLocation, [location]),
+	comment = isnull(@newComment, comment),
+	fkIdService = isnull(@newFkIdService, fkIdService),
+	fkIdStatus = isnull(@newFkIdStatus, fkIdStatus)
+where
+	pkIdOrder = @pkIdOrder
+go
+
+--exec pr_UpdateOrder @pkIdOrder = 'c273fce9-01a7-4f17-8573-cf4245ca0250',
+--	@newLocation = 'Уручье, 10', @newComment = 'Добавил киломметры к локации',
+--	@newFkIdService = '2', @newFkIdStatus='2'
+--go
+
+
+create or alter procedure pr_DeleteOrder
+	@pkIdOrder nvarchar(256)
+as
+	if exists (select 1 from tbOrder where pkIdOrder = @pkIdOrder)
+		delete from tbOrder where pkIdOrder = @pkIdOrder
+
+--exec pr_DeleteOrder @pkIdOrder = 'b8c7d16b-4810-4241-9778-d03275ac4ce7'
