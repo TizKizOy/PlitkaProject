@@ -1,6 +1,6 @@
-import phoneCall from "../image/phoneCall.png";
-import telegram from "../image/telegram.png";
-import instagram from "../image/instagram.png";
+import phoneCall from "../assets/icon/phoneCall.png";
+import telegram from "../assets/icon/telegram.png";
+import instagram from "../assets/icon/instagram.png";
 
 const footerButtons = [
   { src: phoneCall, alt: "Phone Call" },

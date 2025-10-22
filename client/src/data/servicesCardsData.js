@@ -1,7 +1,7 @@
-import WorkPlitka from "../image/workPlitka.png";
-import Grass from "../image/grass.png";
-import Sewage from "../image/sewage.png";
-import Construction from "../image/construction.png";
+import WorkPlitka from "../assets/icon/workPlitka.png";
+import Grass from "../assets/icon/grass.png";
+import Sewage from "../assets/icon/sewage.png";
+import Construction from "../assets/icon/construction.png";
 
 const serviceCardsData = [
   {
