@@ -7,7 +7,8 @@ exports.login = async (req, res) => {
       return res.status(400).json({ error: "Логин и пароль обязательны!" });
     }
     const admin = await adminService.authenticateAdmin(login, password);
-    req.session.admin = { id: admin.pkIdAdmin,
+    req.session.admin = {
+      id: admin.pkIdAdmin,
       login: admin.login,
       role: admin.login
     };
