@@ -7,31 +7,17 @@ function validateOrderData(data) {
   }
 }
 
-async function getAllOrders() {
-  const result = await db.readOrder();
+exports.getAllOrders = async({ status, startDate, endDate, searchText }) => {
+  const result = await db.readOrder({ status, startDate, endDate, searchText });
   return result.orders;
 }
 
-async function getOrdersByStatus(status) {
-  const result = await db.readOrder();
-  const filteredOrders = result.orders.filter(
-    (order) => order.status === status
-  );
-  return filteredOrders;
-}
-
-async function updateOrderStatus(pkIdOrder, status) {
-  const updatedOrder = await db.updateOrderStatus(pkIdOrder, status);
-  return updatedOrder;
-};
-
-
-async function getOrderById(pkIdOrder) {
+exports.getOrderById = async(pkIdOrder) => {
   const result = await db.readOrder();
   return result.orders.find((order) => order.pkIdOrder === pkIdOrder);
 }
 
-async function createOrder(data) {
+exports.createOrder = async(data) => {
   validateOrderData(data);
   const orderContent = await db.readOrder();
   const orderExists = orderContent.orders.some(
@@ -48,7 +34,8 @@ async function createOrder(data) {
   return newOrder;
 }
 
-async function updateOrder(pkIdOrder, newData) {
+
+exports.updateOrder = async(pkIdOrder, newData) => {
   if (Object.keys(newData).length === 0) {
     throw new Error("Нет данных для обновления");
   }
@@ -56,7 +43,7 @@ async function updateOrder(pkIdOrder, newData) {
   return updatedOrder;
 }
 
-async function deleteOrder(pkIdOrder) {
+exports.deleteOrder = async(pkIdOrder) => {
   const orderContent = await db.readOrder();
   const orderIndex = orderContent.orders.findIndex(
     (order) => order.pkIdOrder === pkIdOrder
@@ -66,13 +53,3 @@ async function deleteOrder(pkIdOrder) {
   }
   await db.deleteOrder(pkIdOrder);
 }
-
-module.exports = {
-  getAllOrders,
-  getOrderById,
-  createOrder,
-  updateOrder,
-  deleteOrder,
-  getOrdersByStatus,
-  updateOrderStatus,
-};

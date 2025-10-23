@@ -3,13 +3,13 @@ const { sendNotification } = require("../../bot/services/notification");
 
 exports.getOrder = async (req, res, next) => {
   try {
-    const { status } = req.query;
-    let orders;
-    if (status) {
-      orders = await orderService.getOrdersByStatus(status);
-    } else {
-      orders = await orderService.getAllOrders();
-    }
+    const { status, startDate, endDate, searchText} = req.query;
+      orders = await orderService.getAllOrders({
+        status,
+        startDate,
+        endDate,
+        searchText,
+      });
     res.json(orders);
   } catch (error) {
     next(error);
@@ -29,20 +29,7 @@ exports.getOrderById = async (req, res, next) => {
   }
 };
 
-exports.updateOrderStatus = async (req, res, next) => {
-  try {
-    const { pkIdOrder } = req.params;
-    const { status } = req.body;
 
-    const updatedOrder = await orderService.updateOrderStatus(
-      pkIdOrder,
-      status
-    );
-    res.json(updatedOrder);
-  } catch (error) {
-    next(error);
-  }
-};
 
 exports.postOrder = async (req, res, next) => {
   try {
@@ -70,7 +57,7 @@ exports.postOrder = async (req, res, next) => {
   }
 };
 
-exports.putAndPatchOrderById = async (req, res, next) => {
+exports.putOrderById = async (req, res, next) => {
   try {
     if (!req.body || Object.keys(req.body).length === 0) {
       return res
