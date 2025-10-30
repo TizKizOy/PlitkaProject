@@ -53,8 +53,7 @@
 }
 
 .icon {
-  width: 4.5rem;
-  height: 4.5rem;
+  font-size: 4.5rem;
   transition: transform 0.3s;
 }
 .icon:hover {
@@ -71,5 +70,24 @@
   }
   .title {
     margin-bottom: 6rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .footerContainer {
+    padding: 12rem 0;
+  }
+  .title {
+    font-size: 3rem;
+  }
+  .listLink {
+    font-size: 2.2rem;
+  }
+  .icon {
+    font-size: 10rem;
+  }
+  .copyright {
+    width: 25rem;
+    margin: 0 auto;
   }
 }

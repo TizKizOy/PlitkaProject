@@ -11,4 +11,7 @@
   .card {
     gap: 1rem;
   }
+  .cardsContainer {
+    margin-bottom: 12rem;
+  }
 }

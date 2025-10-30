@@ -45,8 +45,17 @@
   }
 }
 
-@media (max-width: 576px) {
-  card {
-    width: 100%;
+@media (max-width: 425px) {
+  .card {
+    width: 90%;
+  }
+  .image {
+    height: 21rem;
+  }
+  .textContainer {
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 1.8rem;
   }
 }

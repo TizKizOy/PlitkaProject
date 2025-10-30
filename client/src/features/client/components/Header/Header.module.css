@@ -3,3 +3,9 @@
   z-index: 2;
   padding-top: 16rem;
 }
+
+@media (max-width: 425px) {
+  .content {
+    padding-top: 14rem;
+  }
+}

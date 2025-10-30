@@ -8,6 +8,7 @@ import Main from "../../components/Main/Main";
 import MessageAfterAppForm from "../../forms/MessageAfterAppForm/MessageAfterAppForm";
 import { validateForm } from "../../utils/validation";
 import axios from "axios";
+import { API_URL } from "../../../../shared/utils/apiConfig";
 
 export const ClientPage = () => {
   const [appFormIsVisible, setAppFormIsVisible] = useState(false);
@@ -48,16 +49,13 @@ export const ClientPage = () => {
     setErrors(newErrors);
     if (isValid) {
       setAppFormIsVisible(false);
-      console.log(JSON.stringify(data, null, 2));
-
       axios
-        .post("http://localhost:2020/v1/order", data, {
+        .post(`${API_URL}/v1/order`, data, {
           headers: {
             "Content-Type": "application/json",
           },
         })
-        .then((response) => {
-          console.log("Ответ сервера:", response.data);
+        .then(() => {
           setData({
             firstName: "",
             phone: "",

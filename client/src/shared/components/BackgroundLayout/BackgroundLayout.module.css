@@ -7,6 +7,7 @@
   width: 100%;
   padding: 5rem 5rem 0 5rem;
   overflow: hidden;
+  margin-bottom: 0;
 }
 
 .overlay {
@@ -25,5 +26,12 @@
   }
   .backImage {
     margin-bottom: 10rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .backImage {
+    padding: 0rem 3rem 0 3rem;
+    margin-bottom: 0;
   }
 }
