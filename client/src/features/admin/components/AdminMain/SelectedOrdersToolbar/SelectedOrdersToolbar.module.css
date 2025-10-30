@@ -5,11 +5,23 @@
   padding: 1.2rem 1.5rem;
   background: white;
   border-radius: 1rem;
-  margin-bottom: 2rem;
   font-size: 1.6rem;
   font-weight: 400;
   color: #636363;
   width: 45rem;
+  position: absolute;
+  top: 19rem;
+  left: 5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.toolbar_visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .selectedCount {
@@ -43,4 +55,34 @@
 
 .button:hover {
   color: #000;
+}
+
+@media (max-width: 768px) {
+  .button {
+    font-size: 2.3rem;
+  }
+  .toolbar {
+    width: 30rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .toolbar {
+    top: 20rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 5.5rem;
+  }
+  .button,
+  .closeIcon {
+    font-size: 2.7rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .toolbar {
+    width: 90%;
+    height: 5.5rem;
+  }
 }

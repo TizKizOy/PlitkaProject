@@ -8,9 +8,12 @@ const SelectedOrdersToolbar = ({
   onSetStatusActive,
   onDeleteOrder,
   onClose,
+  isVisible,
 }) => {
   return (
-    <div className={style.toolbar}>
+    <div
+      className={`${style.toolbar} ${isVisible ? style.toolbar_visible : ""}`}
+    >
       <div className={style.selectedCount}>
         <FiX className={style.closeIcon} onClick={onClose} />
         <span>

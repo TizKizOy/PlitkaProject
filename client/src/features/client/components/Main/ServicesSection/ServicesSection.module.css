@@ -1,3 +1,7 @@
+.container {
+  padding-top: 14rem;
+}
+
 .title {
   text-transform: lowercase;
 }
@@ -12,5 +16,11 @@
     width: 100%;
     padding: 0 2rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding-top: 0rem;
   }
 }

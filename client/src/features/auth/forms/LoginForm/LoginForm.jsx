@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import style from "./LoginForm.module.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { API_URL } from "../../../../shared/utils/apiConfig";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,14 +22,13 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:2020/admin/login", data, {
+      .post(`${API_URL}/admin/login`, data, {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       })
-      .then((response) => {
-        console.log("Ответ сервера:", response.data);
+      .then(() => {
         navigate("/admin");
       })
       .catch((error) => {

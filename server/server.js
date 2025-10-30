@@ -12,7 +12,7 @@ const app = createApp();
 
 app.use(
   cors({
-    origin: process.env.URL_OF_CORS_1,
+    origin: [process.env.URL_OF_CORS_1, process.env.URL_OF_CORS_2],
     credentials: true,
   })
 );

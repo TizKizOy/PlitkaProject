@@ -33,3 +33,10 @@
     display: flex;
   }
 }
+
+@media (max-width: 425px) {
+  .hamburger {
+    top: 5.2rem;
+    right: 6.5rem;
+  }
+}

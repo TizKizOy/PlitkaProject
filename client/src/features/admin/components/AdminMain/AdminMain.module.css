@@ -8,7 +8,3 @@
   flex-direction: column;
   transition: margin-right 0.3s ease;
 }
-
-.content_shifted {
-  margin-right: 34rem;
-}

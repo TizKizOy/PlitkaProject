@@ -6,7 +6,7 @@ import AboutUsRight from "../../../../../assets/image/AboutUsRight.jpg";
 
 const AboutSection = () => {
   return (
-    <div className={style.container}>
+    <div id="aboutSection" className={style.container}>
       <div className={style.textContainer}>
         <h3 className={style.title}>о нас</h3>
         <h2 className={style.subtitle}>СОЗДАЁМ УЮТНЫЕ УЧАСТКИ ДЛЯ ОТДЫХА</h2>

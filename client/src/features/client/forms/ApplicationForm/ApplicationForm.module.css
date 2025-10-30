@@ -7,13 +7,14 @@
   align-items: center;
   z-index: 1002;
 }
+
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1001;
 }
 
@@ -72,4 +73,43 @@
 
 .submitButton:hover {
   transform: scale(1.1);
+}
+
+@media (max-width: 425px) {
+  .formCard {
+    width: 40rem;
+    padding: 6rem 3rem;
+    border-radius: 5rem;
+  }
+  .closeButton {
+    top: 0rem;
+    right: 2rem;
+    font-size: 7rem;
+  }
+  .formCard h2 {
+    font-size: 3.2rem;
+  }
+  .formCard p {
+    font-size: 2rem;
+  }
+  .submitButton {
+    font-size: 2rem;
+    padding: 2rem 2rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .formCard {
+    width: 36rem;
+  }
+  .formCard h2 {
+    font-size: 2.8rem;
+  }
+  .formCard p {
+    font-size: 1.9rem;
+  }
+  .submitButton {
+    font-size: 1.8rem;
+    padding: 2rem 2rem;
+  }
 }

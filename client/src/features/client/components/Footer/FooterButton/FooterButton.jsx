@@ -1,8 +1,8 @@
 import style from "./FooterButton.module.css";
 
-const FooterButton = ({ children }) => {
+const FooterButton = ({ children, href }) => {
   return (
-    <a href="#" className={style.footButton}>
+    <a href={href} className={style.footButton}>
       {children}
     </a>
   );

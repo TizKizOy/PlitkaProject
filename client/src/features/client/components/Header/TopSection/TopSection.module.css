@@ -46,3 +46,12 @@
     margin-bottom: 6rem;
   }
 }
+
+@media (max-width: 425px) {
+  .subtitle {
+    max-width: 35.5rem;
+  }
+  .title {
+    font-size: 4rem;
+  }
+}

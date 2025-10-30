@@ -29,3 +29,23 @@
 .filterBar__button {
   padding: 0.9rem 2.7rem;
 }
+
+@media (max-width: 576px) {
+  .filterBar__select {
+    display: none;
+  }
+  .filterBar {
+    justify-content: center;
+  }
+  .filterBar__input {
+    width: 95%;
+    height: 5.5rem;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 425px) {
+  .filterBar__input {
+    width: 100%;
+  }
+}

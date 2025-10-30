@@ -76,8 +76,14 @@
   }
 }
 
+@media (max-width: 425px) {
+  .formCard {
+    width: 42.5rem;
+  }
+}
+
 @media (max-width: 375px) {
   .formCard {
-    width: 40rem;
+    width: 37.5rem;
   }
 }

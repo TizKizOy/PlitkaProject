@@ -1,30 +1,28 @@
-import WorkPlitka from "../../../assets/icon/workPlitka.png";
-import Grass from "../../../assets/icon/grass.png";
-import Sewage from "../../../assets/icon/sewage.png";
-import Construction from "../../../assets/icon/construction.png";
+import { CiGrid41, CiDroplet, CiMaximize2 } from "react-icons/ci";
+import { PiPlantThin } from "react-icons/pi";
 
 const serviceCardsData = [
   {
     id: 1,
-    icon: WorkPlitka,
+    icon: <CiGrid41 />,
     title: "укладка плитки дорожные работы",
-    text: ["грунтовые дороги", "тротуарная плитка"],
+    text: ["тротуарная плитка", "грунтовые дороги"],
   },
   {
     id: 2,
-    icon: Construction,
+    icon: <CiMaximize2 />,
     title: "возведение фундамента",
     text: ["строительство фундамента ", "возведение построек"],
   },
   {
     id: 3,
-    icon: Grass,
+    icon: <PiPlantThin />,
     title: "посев газона|установка забора",
     text: ["установка заборов", "посев газона"],
   },
   {
     id: 4,
-    icon: Sewage,
+    icon: <CiDroplet />,
     title: "коммуникации водоотведение",
     text: ["проведение коммуникаций", "систем водоотведения"],
   },
