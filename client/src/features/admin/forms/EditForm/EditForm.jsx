@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import style from "./EditForm.module.css";
 import services from "../../../../shared/data/servicesForm";
-
-const api_url = import.meta.env.VITE_API_URL;
+import { API_URL } from "../../../../shared/utils/apiConfig";
 
 const EditForm = ({
   order,
@@ -14,12 +13,22 @@ const EditForm = ({
   fetchOrders,
 }) => {
   const [formData, setFormData] = useState(() => {
+    if (!order) {
+      return {
+        firstName: "",
+        phone: "",
+        serviceName: "",
+        location: "",
+        comment: "",
+        status: "активно",
+      };
+    }
     const initialServiceLabel = services.find(
       (s) => s.value === order.serviceName
     )?.label;
     return {
       ...order,
-      serviceName: initialServiceName || order.serviceName,
+      serviceName: initialServiceName || order.serviceName || "",
     };
   });
 
@@ -46,7 +55,7 @@ const EditForm = ({
       };
 
       const response = await axios.put(
-        `${api_url}/v1/order/${order.pkIdOrder}`,
+        `${API_URL}/v1/order/${order.pkIdOrder}`,
         reqData,
         { withCredentials: true }
       );
@@ -76,6 +85,8 @@ const EditForm = ({
         <div className={style.editForm__rowItem}>
           <label>Заказчик</label>
           <input
+            minLength={2}
+            maxLength={100}
             type="text"
             name="firstName"
             value={formData.firstName}
@@ -85,6 +96,8 @@ const EditForm = ({
         <div className={style.editForm__rowItem}>
           <label>Номер телефона</label>
           <input
+            minLength={9}
+            maxLength={28}
             type="text"
             name="phone"
             value={formData.phone}
@@ -111,6 +124,8 @@ const EditForm = ({
         <div className={style.editForm__rowItem}>
           <label>Локация, км</label>
           <input
+            minLength={2}
+            maxLength={240}
             type="text"
             name="location"
             value={formData.location}

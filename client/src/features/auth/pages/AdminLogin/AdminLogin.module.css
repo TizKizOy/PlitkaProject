@@ -11,3 +11,13 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+@media (max-width: 425px) {
+  .wrap {
+    height: 90vh;
+  }
+  .content {
+    justify-content: center;
+    align-items: center;
+  }
+}

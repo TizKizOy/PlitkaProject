@@ -5,12 +5,12 @@ import FilterSection from "./FilterSection/FilterSection";
 import OrdersSection from "./OrdersSection/OrdersSection";
 import SelectedOrdersToolbar from "./SelectedOrdersToolbar/SelectedOrdersToolbar";
 import { useEffect, useState } from "react";
-
-const api_url = "http://localhost:2020";
+import { API_URL } from "../../../../shared/utils/apiConfig";
 
 const AdminMain = ({ orders: initialOrders, setOrders }) => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+  const [isSelectedOrderVisible, setIsSelectedOrderVisible] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [filters, setFilters] = useState({
     status: "активно",
@@ -63,7 +63,7 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
       }
       if (filters.searchText) params.searchText = filters.searchText;
 
-      const response = await axios.get(`${api_url}/v1/order`, {
+      const response = await axios.get(`${API_URL}/v1/order`, {
         params,
         withCredentials: true,
       });
@@ -76,6 +76,9 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
   useEffect(() => {
     fetchOrders();
   }, [filters]);
+  useEffect(() => {
+    setIsSelectedOrderVisible(selectedOrders.length > 0);
+  }, [selectedOrders]);
 
   const handleStatusChange = (e) => {
     const selectedStatus = e.target.value;
@@ -97,13 +100,16 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
   };
 
   const handleRowClick = (order) => {
-    setIsEditFormVisible(false);
     setSelectedOrder(order);
-    setIsEditFormVisible(true);
+    setTimeout(() => setIsEditFormVisible(true), 0.1);
   };
 
   const handleCloseEditForm = () => {
     setIsEditFormVisible(false);
+  };
+  const handleCloseToolbar = () => {
+    setIsSelectedOrderVisible(false);
+    setSelectedOrders([]);
   };
 
   const handleCheckboxChange = (e, orderId) => {
@@ -120,7 +126,7 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
       await Promise.all(
         selectedOrders.map((orderId) =>
           axios.put(
-            `${api_url}/v1/order/${orderId}`,
+            `${API_URL}/v1/order/${orderId}`,
             { fkIdStatus: 1 },
             { withCredentials: true }
           )
@@ -145,7 +151,7 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
       await Promise.all(
         selectedOrders.map((orderId) =>
           axios.put(
-            `${api_url}/v1/order/${orderId}`,
+            `${API_URL}/v1/order/${orderId}`,
             { fkIdStatus: 2 },
             { withCredentials: true }
           )
@@ -169,7 +175,7 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
     try {
       await Promise.all(
         selectedOrders.map((orderId) =>
-          axios.delete(`${api_url}/v1/order/${orderId}`, {
+          axios.delete(`${API_URL}/v1/order/${orderId}`, {
             withCredentials: true,
           })
         )
@@ -177,56 +183,51 @@ const AdminMain = ({ orders: initialOrders, setOrders }) => {
       setOrders((prev) =>
         prev.filter((order) => !selectedOrders.includes(order.pkIdOrder))
       );
-      await fetchOrders();
+      setTimeout(async () => {
+        await fetchOrders();
+      }, 300);
       setSelectedOrders([]);
     } catch (error) {
       console.error("Ошибка при удалении:", error);
     }
   };
 
-  const handleCloseToolbar = () => {
-    setSelectedOrders([]);
-  };
-
   return (
     <>
-      <div
-        className={`${style.content} ${
-          isEditFormVisible ? style.content_shifted : ""
-        }`}
-      >
+      <div className={style.content}>
         <FilterSection
           filters={filters}
           onStatusChange={handleStatusChange}
           onDateRangeChange={handleDateRangeChange}
           onSearchChange={handleSearchChange}
         />
-        {selectedOrders.length > 0 && (
-          <SelectedOrdersToolbar
-            selectedOrdersCount={selectedOrders.length}
-            onSetStatusClosed={onSetStatusClosed}
-            onSetStatusActive={onSetStatusActive}
-            onDeleteOrder={onDeleteOrder}
-            onClose={handleCloseToolbar}
-          />
-        )}
+
+        <SelectedOrdersToolbar
+          selectedOrdersCount={selectedOrders.length}
+          onSetStatusClosed={onSetStatusClosed}
+          onSetStatusActive={onSetStatusActive}
+          onDeleteOrder={onDeleteOrder}
+          onClose={handleCloseToolbar}
+          isVisible={isSelectedOrderVisible}
+        />
+
         <OrdersSection
           orders={initialOrders}
           onRowClick={handleRowClick}
           selectedOrders={selectedOrders}
           onCheckboxChange={handleCheckboxChange}
+          isVisibleToolBar={isSelectedOrderVisible}
         />
       </div>
-      {isEditFormVisible && (
-        <EditForm
-          key={selectedOrder?.pkIdOrder}
-          order={selectedOrder}
-          setOrders={setOrders}
-          onClose={handleCloseEditForm}
-          isVisible={isEditFormVisible}
-          fetchOrders={fetchOrders}
-        />
-      )}
+
+      <EditForm
+        key={selectedOrder?.pkIdOrder}
+        order={selectedOrder}
+        setOrders={setOrders}
+        onClose={handleCloseEditForm}
+        isVisible={isEditFormVisible}
+        fetchOrders={fetchOrders}
+      />
     </>
   );
 };

@@ -2,3 +2,9 @@
   padding: 0 5rem;
   padding-top: 12rem;
 }
+
+@media (max-width: 425px) {
+  .content {
+    padding: 12rem 3rem;
+  }
+}

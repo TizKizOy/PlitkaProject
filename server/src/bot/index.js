@@ -10,6 +10,4 @@ const { setupCallbacks } = require("./handlers/callbacks");
 setupCommands(bot);
 setupCallbacks(bot);
 
-console.log("Бот запущен!");
-
 module.exports = { bot };

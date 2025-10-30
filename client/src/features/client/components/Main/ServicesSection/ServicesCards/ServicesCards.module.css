@@ -6,3 +6,9 @@
   gap: 2rem;
   margin-bottom: 14rem;
 }
+
+@media (max-width: 425px) {
+  .cardsContainer {
+    margin-bottom: 10rem;
+  }
+}

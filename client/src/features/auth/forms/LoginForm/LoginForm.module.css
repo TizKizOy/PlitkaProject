@@ -58,3 +58,7 @@
   right: 0;
   cursor: pointer;
 }
+
+.error {
+  color: orange;
+}

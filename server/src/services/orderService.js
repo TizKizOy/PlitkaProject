@@ -20,11 +20,13 @@ exports.getOrderById = async(pkIdOrder) => {
 exports.createOrder = async(data) => {
   validateOrderData(data);
   const orderContent = await db.readOrder();
-  const orderExists = orderContent.orders.some(
+  const samePhoneOrders = orderContent.orders.filter(
     (order) => order.phone === data.phone
   );
-  if (orderExists) {
-    throw new Error("Клиент с таким номером телефона уже существует");
+  if (samePhoneOrders.length > 3) {
+    throw new Error(
+      "Клиент с таким номером телефона уже имеет 3 или более заказов"
+    );
   }
   const newOrder = {
     pkIdOrder: uuidv4(),

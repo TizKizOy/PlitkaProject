@@ -18,6 +18,10 @@
   margin: 0;
 }
 
+.desktopOnly {
+  display: inline; /* По умолчанию отображается */
+}
+
 @media (max-width: 992px) {
   .statItem {
     margin-bottom: 4rem;
@@ -30,7 +34,16 @@
     font-size: 2.5rem;
     width: 15rem;
   }
+
   .statsContainer {
     gap: 3rem;
+  }
+
+  .statItem {
+    margin-bottom: 0rem;
+  }
+
+  .desktopOnly {
+    display: none;
   }
 }

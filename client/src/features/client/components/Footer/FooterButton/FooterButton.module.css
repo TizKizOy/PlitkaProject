@@ -1,9 +1,11 @@
 .footButton {
   border-radius: 100%;
   border: 0;
-  width: 4.5rem;
-  height: 4.5rem;
+  font-size: 4rem;
+  width: auto;
+  height: auto;
   margin-bottom: 8rem;
+  color: white;
 }
 .footButton:not(:last-child) {
   margin-right: 4rem;

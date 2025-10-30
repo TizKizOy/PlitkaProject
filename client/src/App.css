@@ -32,6 +32,7 @@ p {
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 1400px) {
@@ -59,6 +60,7 @@ html {
     font-size: 48%;
   }
 }
+
 @media (max-width: 425px) {
   html {
     font-size: 47%;
@@ -67,6 +69,7 @@ html {
     font-size: 4.1rem;
   }
 }
+
 @media (min-width: 1800px) {
   html {
     font-size: 70%;

@@ -40,7 +40,6 @@ async function sendNotification(order) {
   `;
   try {
     await bot.sendMessage(chatId, message);
-    console.log("Уведомление отправлено в Telegram");
   } catch (error) {
     console.error("Ошибка отправки уведомления:", error);
   }
