@@ -40,6 +40,7 @@
   font-size: 1.6rem;
   transition: transform 0.2s ease;
   cursor: pointer;
+  background-color: white;
 }
 
 .form__button:hover {
