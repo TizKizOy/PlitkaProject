@@ -4,7 +4,7 @@ const orderController = require("../../controllers/v1/orderController");
 const isAuthenticated =
   require("../../middlewares/isAuthenticated").isAuthenticated;
 
-router.get("/order", isAuthenticated, orderController.getOrder);
+router.get("/order", orderController.getOrder);
 router.get("/order/:id", isAuthenticated, orderController.getOrderById);
 router.post("/order", orderController.postOrder);
 router.put("/order/:id", isAuthenticated, orderController.putOrderById);
